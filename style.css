@@ -1,15 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
+
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Roboto Slab", serif;
+    font-weight: 500;
+
+
+
 }
 
 body {
-    background: #001e4d;
+    background-image: radial-gradient(circle, #4d4d4d, #3a3a3a, #292929, #181818, #000000);
 }
 
 .app {
-    background: white;
+    background-image: linear-gradient(to right top, #161315, #222123, #302f31, #3e3e40, #4d4e4f, #535556, #5a5b5c, #606263, #5f6161, #5e6060, #5d5f5e, #5d5e5c);
     width: 90%;
     max-width: 600px;
     margin: 100px auto 0;
@@ -18,13 +27,16 @@ body {
 
 }
 
-.app h1 {
-    font-size: 25px;
-    color: #001e4d;
-    font-weight: 600;
+.app .heading {
+    font-size: 33px;
+    color: #fff;
+    font-weight: 500;
+
     padding-bottom: 30px;
-    border-bottom: 1px solid #333;
+    border-bottom: 3px solid #a5a5a5;
+    text-align: center;
 }
+
 
 .quiz {
     padding: 20px 0;
@@ -32,39 +44,60 @@ body {
 }
 
 .quiz h2 {
-    font-size: 18px;
-    color: #001e4d;
-    font-weight: 600;
+    font-size: 21px;
+    color: #fff;
+    font-weight: 500;
+
 }
 
 .btn {
     background: #fff;
     color: #222;
+    font-size: 15px;
     font-weight: 500;
     width: 100%;
-    border: 1px solid #222;
+    border: 2px solid #7b7171;
     padding: 10px;
     margin: 10px 0;
     text-align: left;
-    border-radius: 4px;
+    border-radius: 15px;
     cursor: pointer;
 }
 
-.btn:hover {
-    background: #222;
+.btn:hover:not([disabled]) {
+    background-image: radial-gradient(circle, #4d4d4d, #3a3a3a, #292929, #181818, #000000);
     color: #fff;
-    transition: 0.3s;
+    transition: 0.5s;
+}
+
+.btn:disabled {
+
+    cursor: no-drop;
 }
 
 #next-btn {
-    background: #001e4d;
+    background-color: #000000b8;
     color: #fff;
     font-weight: 500;
-    width: 150px;
+    width: 140px;
     border: 0;
     padding: 10px;
     margin: 20px auto 0;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 25px;
     display: none;
+}
+
+#next-btn:hover {
+    color: #000000;
+    background-color: #fff;
+    transition: 0.7s;
+}
+
+.correct {
+    background: #9aeabc;
+}
+
+.incorrect {
+    background: #ff9393;
 }
