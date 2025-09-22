@@ -1,196 +1,133 @@
-console.log("hello world!");
-
 const questions = [
-  {
-    question: "Which planet is known as the Red Planet?",
-    answers: [
-      { text: "Venus", correct: false },
-      { text: "Mars", correct: true },
-      { text: "Jupiter", correct: false },
-      { text: "Saturn", correct: false },
-    ],
-  },
-  {
-    question: "What is the chemical symbol for water?",
-    answers: [
-      { text: "O2", correct: false },
-      { text: "CO2", correct: false },
-      { text: "H2O", correct: true },
-      { text: "HO2", correct: false },
-    ],
-  },
-  {
-    question: "Who wrote the play 'Romeo and Juliet'?",
-    answers: [
-      { text: "Charles Dickens", correct: false },
-      { text: "Jane Austen", correct: false },
-      { text: "Mark Twain", correct: false },
-      { text: "William Shakespeare", correct: true },
-    ],
-  },
-  {
-    question: "Which element is the most abundant in the Earth's atmosphere?",
-    answers: [
-      { text: "Oxygen", correct: false },
-      { text: "Carbon Dioxide", correct: false },
-      { text: "Nitrogen", correct: true },
-      { text: "Hydrogen", correct: false },
-    ],
-  },
-  {
-    question: "In which year did the Titanic sink?",
-    answers: [
-      { text: "1905", correct: false },
-      { text: "1912", correct: true },
-      { text: "1920", correct: false },
-      { text: "1915", correct: false },
-    ],
-  },
-  {
-    question: "What is the capital city of Japan?",
-    answers: [
-      { text: "Tokyo", correct: true },
-      { text: "Kyoto", correct: false },
-      { text: "Osaka", correct: false },
-      { text: "Hiroshima", correct: false },
-    ],
-  },
-  {
-    question: "Which is the smallest prime number?",
-    answers: [
-      { text: "1", correct: false },
-      { text: "3", correct: false },
-      { text: "2", correct: true },
-      { text: "5", correct: false },
-    ],
-  },
-  {
-    question: "What is the main ingredient in guacamole?",
-    answers: [
-      { text: "Tomato", correct: false },
-      { text: "Lime", correct: false },
-      { text: "Avocado", correct: true },
-      { text: "Onion", correct: false },
-    ],
-  },
-  {
-    question: "Which company is known for the iPhone?",
-    answers: [
-      { text: "Samsung", correct: false },
-      { text: "Apple", correct: true },
-      { text: "Google", correct: false },
-      { text: "Microsoft", correct: false },
-    ],
-  },
-  {
-    question: "Who painted the Mona Lisa?",
-    answers: [
-      { text: "Leonardo da Vinci", correct: true },
-      { text: "Vincent van Gogh", correct: false },
-      { text: "Pablo Picasso", correct: false },
-      { text: "Claude Monet", correct: false },
-    ],
-  },
+    {
+        question: "Which language runs in a web browser?",
+        answers: [
+            { text: "Java", correct: false },
+            { text: "C", correct: false },
+            { text: "Python", correct: false },
+            { text: "JavaScript", correct: true }
+        ]
+    },
+    {
+        question: "What does CSS stand for?",
+        answers: [
+            { text: "Central Style Sheets", correct: false },
+            { text: "Cascading Style Sheets", correct: true },
+            { text: "Cascading Simple Sheets", correct: false },
+            { text: "Cars SUVs Sailboats", correct: false }
+        ]
+    },
+    {
+        question: "What does HTML stand for?",
+        answers: [
+            { text: "Hypertext Markup Language", correct: true },
+            { text: "Hyperloop Machine Language", correct: false },
+            { text: "Helicopters Terminals Motorboats Lamborginis", correct: false },
+            { text: "None of the above", correct: false }
+        ]
+    },
+    {
+        question: "What year was JavaScript launched?",
+        answers: [
+            { text: "1996", correct: false },
+            { text: "1995", correct: true },
+            { text: "1994", correct: false },
+            { text: "None of the above", correct: false }
+        ]
+    }
 ];
 
-console.log(questions);
-
 const questionElement = document.getElementById("qustion");
-const answersBtn = document.getElementById("button");
-const nextBtn = document.getElementById("next-btn");
-const quitBtn = document.getElementById("quit-btn"); // ✅ reference quit button
+const answerButtons = document.getElementById("button");
+const nextButton = document.getElementById("next-btn");
+const quitButton = document.getElementById("quit-btn");
 
 let currentQuestionIndex = 0;
 let score = 0;
 
 function startQuiz() {
-  currentQuestionIndex = 0;
-  score = 0;
-  nextBtn.innerHTML = "Next";
-  quitBtn.style.display = "inline-block"; // ✅ show quit button at start
-  showQuestion();
+    currentQuestionIndex = 0;
+    score = 0;
+    showQuestion();
+
+    // Reset buttons
+    nextButton.innerHTML = "Next";
+    nextButton.style.display = "none";  // hide until user selects an answer
+    quitButton.style.display = "block"; // show quit button
 }
 
 function showQuestion() {
-  resetState();
-  console.log(currentQuestionIndex);
-  let currentQuestion = questions[currentQuestionIndex];
-  console.log(currentQuestion);
-  let questionNo = currentQuestionIndex + 1;
-  questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
-  currentQuestion.answers.forEach((answers) => {
-    const button = document.createElement("button");
-    button.innerHTML = answers.text;
-    button.classList.add("btn");
-    answersBtn.appendChild(button);
-    if (answers.correct) {
-      button.dataset.correct = answers.correct;
-    }
-    button.addEventListener("click", selectAnswer);
-  });
+    resetState();
+    let currentQuestion = questions[currentQuestionIndex];
+    let questionNo = currentQuestionIndex + 1;
+    questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
+
+    currentQuestion.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerHTML = answer.text;
+        button.classList.add("btn");
+        answerButtons.appendChild(button);
+        if (answer.correct) {
+            button.dataset.correct = answer.correct;
+        }
+        button.addEventListener("click", selectAnswer);
+    });
 }
 
 function resetState() {
-  nextBtn.style.display = "none";
-  while (answersBtn.firstChild) {
-    answersBtn.removeChild(answersBtn.firstChild);
-  }
+    nextButton.style.display = "none";
+    while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
+    }
 }
 
 function selectAnswer(e) {
-  const selectBtn = e.target;
-  const iscorrect = selectBtn.dataset.correct === "true";
-  if (iscorrect) {
-    selectBtn.classList.add("correct");
-    score++;
-  } else {
-    selectBtn.classList.add("incorrect");
-  }
-  Array.from(answersBtn.children).forEach((button) => {
-    if (button.dataset.correct === "true") {
-      button.classList.add("correct");
+    const selectedBtn = e.target;
+    const isCorrect = selectedBtn.dataset.correct === "true";
+    if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        score++;
+    } else {
+        selectedBtn.classList.add("incorrect");
     }
-    button.disabled = true;
-  });
-  nextBtn.style.display = "block";
+
+    Array.from(answerButtons.children).forEach(button => {
+        if (button.dataset.correct === "true") {
+            button.classList.add("correct");
+        }
+        button.disabled = true;
+    });
+
+    nextButton.style.display = "block";
 }
 
 function showScore() {
-  resetState();
-  quitBtn.style.display = "none"; // ✅ hide quit button when results shown
-  if (score <= 5) {
-    questionElement.innerHTML = `Your score is ${score} out of ${questions.length} <br> <h1>You Need To Improve!!</h1>`;
-  } else if (score > 5 && score <= 7) {
-    questionElement.innerHTML = `Your score is ${score} out of ${questions.length}<br> <h1>Good Job!!</h1>`;
-  } else {
-    questionElement.innerHTML = `Your score is ${score} out of ${questions.length}<br> <h1>Congrats!!</h1>`;
-  }
-  questionElement.style.textAlign = "center";
-  nextBtn.innerHTML = "Play Again";
-  nextBtn.style.display = "block";
+    resetState();
+    questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`;
+    nextButton.innerHTML = "Play Again";
+    nextButton.style.display = "block";
+    quitButton.style.display = "none";  // hide quit button after finishing
 }
 
-function handleNextBtn() {
-  currentQuestionIndex++;
-  if (currentQuestionIndex < questions.length) {
-    showQuestion();
-  } else {
+function handleNextButton() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        showScore();
+    }
+}
+
+nextButton.addEventListener("click", () => {
+    if (nextButton.innerHTML === "Play Again") {
+        startQuiz();
+    } else {
+        handleNextButton();
+    }
+});
+
+quitButton.addEventListener("click", () => {
     showScore();
-  }
-}
-
-nextBtn.addEventListener("click", () => {
-  if (currentQuestionIndex < questions.length) {
-    handleNextBtn();
-  } else {
-    startQuiz();
-  }
 });
 
-// ✅ Quit button click ends quiz early
-quitBtn.addEventListener("click", () => {
-  showScore();
-});
-
-// start the quiz when page loads
 startQuiz();
