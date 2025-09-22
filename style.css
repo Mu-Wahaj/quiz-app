@@ -87,7 +87,24 @@ body {
     border-radius: 25px;
     display: none;
 }
+#quit-btn {
+    background-color: #000000b8;
+    color: #fff;
+    font-weight: 500;
+    width: 140px;
+    border: 0;
+    padding: 10px;
+    margin: 20px auto 0;
+    cursor: pointer;
+    border-radius: 25px;
+    display: none;
+}
 
+#quit-btn:hover {
+    color: #000000;
+    background-color: #fff;
+    transition: 0.7s;
+}
 #next-btn:hover {
     color: #000000;
     background-color: #fff;
@@ -100,4 +117,9 @@ body {
 
 .incorrect {
     background: #ff9393;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }

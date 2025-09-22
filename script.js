@@ -1,3 +1,5 @@
+console.log("hello world!");
+
 const questions = [
   {
     question: "Which planet is known as the Red Planet?",
@@ -91,9 +93,12 @@ const questions = [
   },
 ];
 
+console.log(questions);
+
 const questionElement = document.getElementById("qustion");
 const answersBtn = document.getElementById("button");
 const nextBtn = document.getElementById("next-btn");
+const quitBtn = document.getElementById("quit-btn"); // ✅ reference quit button
 
 let currentQuestionIndex = 0;
 let score = 0;
@@ -102,15 +107,17 @@ function startQuiz() {
   currentQuestionIndex = 0;
   score = 0;
   nextBtn.innerHTML = "Next";
-
+  quitBtn.style.display = "inline-block"; // ✅ show quit button at start
   showQuestion();
 }
+
 function showQuestion() {
   resetState();
-  //   console.log(currentQuestionIndex);
+  console.log(currentQuestionIndex);
   let currentQuestion = questions[currentQuestionIndex];
+  console.log(currentQuestion);
   let questionNo = currentQuestionIndex + 1;
-  questionElement.innerHTML = questionNo + " ." + currentQuestion.question;
+  questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
   currentQuestion.answers.forEach((answers) => {
     const button = document.createElement("button");
     button.innerHTML = answers.text;
@@ -122,12 +129,14 @@ function showQuestion() {
     button.addEventListener("click", selectAnswer);
   });
 }
+
 function resetState() {
   nextBtn.style.display = "none";
   while (answersBtn.firstChild) {
     answersBtn.removeChild(answersBtn.firstChild);
   }
 }
+
 function selectAnswer(e) {
   const selectBtn = e.target;
   const iscorrect = selectBtn.dataset.correct === "true";
@@ -148,17 +157,19 @@ function selectAnswer(e) {
 
 function showScore() {
   resetState();
+  quitBtn.style.display = "none"; // ✅ hide quit button when results shown
   if (score <= 5) {
-    questionElement.innerHTML = `your score is ${score} aut of ${questions.length} <br> <h1>You Need To Tmprove!!<h1/>`;
+    questionElement.innerHTML = `Your score is ${score} out of ${questions.length} <br> <h1>You Need To Improve!!</h1>`;
   } else if (score > 5 && score <= 7) {
-    questionElement.innerHTML = `your score is ${score} aut of ${questions.length}<br> <h1>Good Job!!<h1/>`;
+    questionElement.innerHTML = `Your score is ${score} out of ${questions.length}<br> <h1>Good Job!!</h1>`;
   } else {
-    questionElement.innerHTML = `your score is ${score} aut of ${questions.length}<br> <h1>Congrats!!<h1/>`;
+    questionElement.innerHTML = `Your score is ${score} out of ${questions.length}<br> <h1>Congrats!!</h1>`;
   }
   questionElement.style.textAlign = "center";
-  nextBtn.innerHTML = "play again";
+  nextBtn.innerHTML = "Play Again";
   nextBtn.style.display = "block";
 }
+
 function handleNextBtn() {
   currentQuestionIndex++;
   if (currentQuestionIndex < questions.length) {
@@ -175,3 +186,11 @@ nextBtn.addEventListener("click", () => {
     startQuiz();
   }
 });
+
+// ✅ Quit button click ends quiz early
+quitBtn.addEventListener("click", () => {
+  showScore();
+});
+
+// start the quiz when page loads
+startQuiz();
